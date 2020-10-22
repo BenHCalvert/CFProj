@@ -1,4 +1,5 @@
-const Router = require('./router')
+const Router = require('./router');
+import { Store } from "./store";
 
 /**
  * Example of how router can be used in an application
@@ -11,7 +12,8 @@ function handler(request) {
     const init = {
         headers: { 'content-type': 'application/json' },
     }
-    const body = JSON.stringify({ some: 'json' })
+    // const body = JSON.stringify({ some: 'json' })
+    const body = JSON.stringify({ Store })
     return new Response(body, init)
 }
 
@@ -19,7 +21,7 @@ async function handleRequest(request) {
     const r = new Router()
     // Replace with the appropriate paths and handlers
     r.get('.*/bar', () => new Response('responding for /bar'))
-    r.get('.*/foo', request => handler(request))
+    r.get('.*/links', request => handler(request))
     r.post('.*/foo.*', request => handler(request))
     r.get('/demos/router/foo', request => fetch(request)) // return the response from the origin
 
