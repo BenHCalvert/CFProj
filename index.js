@@ -12,7 +12,6 @@ function handler(request) {
     const init = {
         headers: { 'content-type': 'application/json' },
     }
-    // const body = JSON.stringify({ some: 'json' })
     const body = JSON.stringify({ Store })
     return new Response(body, init)
 }
@@ -25,7 +24,7 @@ async function handleRequest(request) {
     r.post('.*/foo.*', request => handler(request))
     r.get('/demos/router/foo', request => fetch(request)) // return the response from the origin
 
-    r.get('/', () => new Response('Hello worker!')) // return a default message for the root route
+    r.get('/', () => new Response("Welcome to Ben Calvert's App")) // return a default message for the root route
 
     const resp = await r.route(request)
     return resp
