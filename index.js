@@ -18,23 +18,27 @@ function handler(request) {
 }
 
 async function handleRequest(request) {
-    const r = new Router()
-    // Replace with the appropriate paths and handlers
-    r.get('.*/bar', () => new Response('responding for /bar'))
-    r.get('.*/links', request => handler(request))
-    r.post('.*/foo.*', request => handler(request))
-    r.get('/demos/router/foo', request => fetch(request)) // return the response from the origin
-
-    // r.get('/', () => new Response("Welcome to Ben Calvert's App")) // return a default message for the root route
-
-    r.get('/', () => new Response(Html, {
-        headers: {
-          "content-type": "text/html;charset=UTF-8",
-        },
-      })) // should return html from html.js module
-
+    try{
+        const r = new Router()
+        // Replace with the appropriate paths and handlers
+        r.get('.*/bar', () => new Response('responding for /bar'))
+        r.get('.*/links', request => handler(request))
+        r.post('.*/foo.*', request => handler(request))
+        r.get('/demos/router/foo', request => fetch(request)) // return the response from the origin
+        
+        // return a default message for the root route
+        // r.get('/', () => new Response("Welcome to Ben Calvert's App")) 
     
-
-    const resp = await r.route(request)
-    return resp
+        // should return html from html.js module
+        r.get('/', () => new Response(Html, {
+            headers: {
+              "content-type": "text/html;charset=UTF-8",
+            },
+          }))    
+    
+        const resp = await r.route(request)
+        return resp
+    }catch (err) {
+        return new Response (err)
+    }
 }
