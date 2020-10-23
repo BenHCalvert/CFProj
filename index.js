@@ -1,5 +1,6 @@
 const Router = require('./router');
 import { Store } from "./store";
+import { Html } from "./html";
 
 /**
  * Example of how router can be used in an application
@@ -24,7 +25,15 @@ async function handleRequest(request) {
     r.post('.*/foo.*', request => handler(request))
     r.get('/demos/router/foo', request => fetch(request)) // return the response from the origin
 
-    r.get('/', () => new Response("Welcome to Ben Calvert's App")) // return a default message for the root route
+    // r.get('/', () => new Response("Welcome to Ben Calvert's App")) // return a default message for the root route
+
+    r.get('/', () => new Response(Html, {
+        headers: {
+          "content-type": "text/html;charset=UTF-8",
+        },
+      })) // should return html from html.js module
+
+    
 
     const resp = await r.route(request)
     return resp
