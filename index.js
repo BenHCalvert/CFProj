@@ -56,7 +56,9 @@ class LinkCreator {
 
   makeAnchorTag(link) {
       if(link.icon) {
-          return `<a href=${link.url}> <img src=${link.icon}></img> </a>`
+          return `<a href=${link.url}>
+                    <img src=${link.icon}></img>
+                </a>`
       } else {
           return `<a href=${link.url}>${link.name}</a>`
       }
@@ -112,8 +114,9 @@ const rewriter = new HTMLRewriter()
           'https://loremflickr.com/120/120/puppy',
       )
   )
-  .on('body', new SetAttributeTransformer("class", "bg-blue-700"))
-  .on('title', new SetInnerContentTransformer('Ben Calvert'))
   .on('h1#name', new SetInnerContentTransformer('Ben Calvert'))
   .on('div#social', new RemoveAttributeTransformer('style'))
   .on('div#social', new LinkCreator(socialMedia))
+  .on('title', new SetInnerContentTransformer('Ben Calvert'))
+  .on('body', new SetAttributeTransformer("class", "bg-blue-700"))
+  .on('div#social', new RemoveAttributeTransformer('display'))
