@@ -1,17 +1,11 @@
-# Hi There!
-This is a Cloudflare Workers project that builds a linktree-style website by pulling links from a simple 'API'.
+## Welcome!
+This is a Cloudflare Workers project that builds a linktree-style website by pulling links from a simple 'API'. You can go directly to the API response at the `/links` route.
 
+#### Customizing Links
 
-#### Router
+To customize the links on this app edit the `socialMedia.js` and the `links.js` files. `socialMedia.js` hold links and icons for social media sites. New social media icons can be found on [simpleicons.org](https://simpleicons.org/)
 
-Selects the logic to respond to requests based on the `request` method and URL. Can be used with REST APIs or apps that require basic routing logic.
-
-[`index.js`](https://github.com/cloudflare/worker-template-router/blob/master/index.js) is the content of the Workers script.
-
-Live Demos are hosted on `workers-tooling.cf/demos/router`:
-[Demo /bar](http://workers-tooling.cf/demos/router/bar) | [Demo /foo](http://workers-tooling.cf/demos/router/foo)
-
-#### Wrangler
+##### Wrangler
 
 You can use [wrangler](https://github.com/cloudflare/wrangler) to generate a new Cloudflare Workers project based on this template by running the following command from your terminal:
 
@@ -33,6 +27,6 @@ to test the app locally, run the following command in the root directory:
 wrangler dev
 ```
 
-#### Serverless
+#####Serverless
 
 To deploy using serverless add a [`serverless.yml`](https://serverless.com/framework/docs/providers/cloudflare/) file.

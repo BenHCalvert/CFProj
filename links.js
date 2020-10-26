@@ -1,18 +1,18 @@
 export const links = [ 
     { 
-        "name": "Hey!",
+        "name": "Heyyyy! Hooooo!",
         "url": "https://hooooooooo.com/"
     },
     {
-        "name": "Drawing",
+        "name": "Check out this drawing website",
         "url": "https://jacksonpollock.org/"
     },
     {
-        "name": "News",
+        "name": "The News is here",
         "url": "https://nytimes.com"
     },
     {
-        "name": "The Weather",
+        "name": "The Weather is here",
         "url": "https://benhcalvert.github.io/HW6_Weather/"
     },
     {
