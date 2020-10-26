@@ -103,7 +103,7 @@ class SetAttributeWriter {
   }
 }
 
-// create everything from above methods
+// create & change everything from above methods
 const rewriter = new HTMLRewriter()
 .on('h1#name', new SetInnerContentWriter('Ben Calvert'))
 .on('title', new SetInnerContentWriter('Ben Calvert'))
