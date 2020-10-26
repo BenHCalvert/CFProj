@@ -26,7 +26,6 @@ async function handleRequest(request) {
         // Replace with the appropriate paths and handlers
         // r.get('.*/bar', () => new Response('responding for /bar'))
         r.get('.*/links', request => handler(request))
-        // r.post('.*/foo.*', request => handler(request))
         r.get('/', request => fetch(page)) // return the response from the origin
         
         // return a default message for the root route
