@@ -27,6 +27,6 @@ to test the app locally, run the following command in the root directory:
 wrangler dev
 ```
 
-#####Serverless
+##### Serverless
 
 To deploy using serverless add a [`serverless.yml`](https://serverless.com/framework/docs/providers/cloudflare/) file.
