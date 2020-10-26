@@ -1,1 +1,1 @@
-https://myassignment.mydomain.com/
+https://my-app.benhcalvert.workers.dev/
