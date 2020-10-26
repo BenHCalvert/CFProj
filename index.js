@@ -7,7 +7,7 @@ function linkHandler(request) {
   const init = {
     headers: { 'content-type': 'application/json' },
   }
-  const body = JSON.stringify({ Links })
+  const body = JSON.stringify({ links })
   return new Response(body, init)
 }
 
@@ -23,7 +23,7 @@ async function pageHandler() {
   if (response.ok) {
       return rewriter.transform(response);
   } else {
-      alert("HTTP-Error: " + response.status);
+      alert("Error: " + response.status);
   }
 }
 
@@ -49,14 +49,14 @@ async function handleRequest(request) {
 /**
  * HTML Manipulation
  *  */
-class LinksTransformer {
+class LinkCreator {
   constructor(links) {
       this.links = links
   }
 
-  getLinkTag(link) {
+  makeAnchorTag(link) {
       if(link.icon) {
-          return `<a href=${link.url}><img src=${link.icon}></img></a>`
+          return `<a href=${link.url}> <img src=${link.icon}></img> </a>`
       } else {
           return `<a href=${link.url}>${link.name}</a>`
       }
@@ -64,7 +64,7 @@ class LinksTransformer {
   
   async element(element) {
       this.links.forEach(link => {
-          element.append(this.getLinkTag(link), {html: true})
+          element.append(this.makeAnchorTag(link), {html: true})
       })
   }
 }
@@ -79,6 +79,18 @@ class RemoveAttributeTransformer {
   }
 }
 
+// Method to replace content of an element
+class SetInnerContentTransformer {
+    constructor(value) {
+        this.contentValue = value
+    }
+    
+    async element(element) {
+        element.setInnerContent(this.contentValue)
+    }
+}
+
+// Sets attribute or creates if it doesn't exist
 class SetAttributeTransformer {
   constructor(attribute, value) {
       this.attributeName = attribute
@@ -90,18 +102,9 @@ class SetAttributeTransformer {
   }
 }
 
-class SetInnerContentTransformer {
-  constructor(value) {
-      this.contentValue = value
-  }
-
-  async element(element) {
-      element.setInnerContent(this.contentValue)
-  }
-}
-
+// create everything from above methods
 const rewriter = new HTMLRewriter()
-  .on('div#links', new LinksTransformer(links))
+  .on('div#links', new LinkCreator(links))
   .on('div#profile', new RemoveAttributeTransformer('style'))
   .on('img#avatar',
       new SetAttributeTransformer(
@@ -113,4 +116,4 @@ const rewriter = new HTMLRewriter()
   .on('title', new SetInnerContentTransformer('Ben Calvert'))
   .on('h1#name', new SetInnerContentTransformer('Ben Calvert'))
   .on('div#social', new RemoveAttributeTransformer('style'))
-  .on('div#social', new LinksTransformer(socialMedia))
+  .on('div#social', new LinkCreator(socialMedia))

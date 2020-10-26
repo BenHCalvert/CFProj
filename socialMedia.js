@@ -1,4 +1,4 @@
-export const socialMinks = [
+export const socialLinks = [
     {
         url: 'https://www.linkedin.com/in/benjamin-calvert-62978438/',
         icon: 'https://simpleicons.org/icons/linkedin.svg',
