@@ -1,4 +1,4 @@
-// const Router = require('./router');
+// Import data from links and social media files
 import { links } from "./links";
 import { socialMedia } from "./socialMedia";
 
@@ -56,11 +56,9 @@ class LinkCreator {
 
   makeAnchorTag(link) {
       if(link.icon) {
-          return `<a href=${link.url}>
-                    <img src=${link.icon}></img>
-                </a>`
+          return `<a href=${link.url} class='socialLinkBtn'> <img src=${link.icon}> </img> </a>`
       } else {
-          return `<a href=${link.url}>${link.name}</a>`
+          return `<a href=${link.url} class='linkBtn'>${link.name}</a>`
       }
   }
   
@@ -71,18 +69,8 @@ class LinkCreator {
   }
 }
 
-class RemoveAttributeTransformer {
-  constructor(attribute) {
-      this.attributeName = attribute
-  }
-  
-  async element(element) {
-      element.removeAttribute(this.attributeName)
-  }
-}
-
 // Method to replace content of an element
-class SetInnerContentTransformer {
+class SetInnerContentWriter {
     constructor(value) {
         this.contentValue = value
     }
@@ -92,8 +80,19 @@ class SetInnerContentTransformer {
     }
 }
 
+// Method to remove an HTML tag's attribute
+class RemoveAttributeWriter {
+  constructor(attribute) {
+      this.attributeName = attribute
+  }
+  
+  async element(element) {
+      element.removeAttribute(this.attributeName)
+  }
+}
+
 // Sets attribute or creates if it doesn't exist
-class SetAttributeTransformer {
+class SetAttributeWriter {
   constructor(attribute, value) {
       this.attributeName = attribute
       this.attributeValue = value
@@ -106,17 +105,12 @@ class SetAttributeTransformer {
 
 // create everything from above methods
 const rewriter = new HTMLRewriter()
-  .on('div#links', new LinkCreator(links))
-  .on('div#profile', new RemoveAttributeTransformer('style'))
-  .on('img#avatar',
-      new SetAttributeTransformer(
-          'src',
-          'https://loremflickr.com/120/120/puppy',
-      )
-  )
-  .on('h1#name', new SetInnerContentTransformer('Ben Calvert'))
-  .on('div#social', new RemoveAttributeTransformer('style'))
-  .on('div#social', new LinkCreator(socialMedia))
-  .on('title', new SetInnerContentTransformer('Ben Calvert'))
-  .on('body', new SetAttributeTransformer("class", "bg-blue-700"))
-  .on('div#social', new RemoveAttributeTransformer('display'))
+.on('h1#name', new SetInnerContentWriter('Ben Calvert'))
+.on('title', new SetInnerContentWriter('Ben Calvert'))
+.on('body', new SetAttributeWriter("class", "bg-blue-700"))
+.on('div#links', new LinkCreator(links))
+.on('div#profile', new RemoveAttributeWriter('style'))
+.on('img#avatar',new SetAttributeWriter('src', 'https://loremflickr.com/120/120/puppy'))
+.on('div#social', new RemoveAttributeWriter('display'))
+.on('div#social', new RemoveAttributeWriter('style'))
+.on('div#social', new LinkCreator(socialMedia))
