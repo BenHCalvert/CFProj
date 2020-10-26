@@ -2,7 +2,7 @@
 This is a Cloudflare Workers project that builds a linktree-style website by pulling links from a simple 'API'.
 
 
-## Router
+#### Router
 
 Selects the logic to respond to requests based on the `request` method and URL. Can be used with REST APIs or apps that require basic routing logic.
 
