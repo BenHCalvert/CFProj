@@ -1,3 +1,7 @@
+# Hi There!
+This is a Cloudflare Workers project that builds a linktree-style website by pulling links from a simple 'API'.
+
+
 ## Router
 
 Selects the logic to respond to requests based on the `request` method and URL. Can be used with REST APIs or apps that require basic routing logic.
@@ -21,6 +25,12 @@ Once you are ready, you can publish your code by running the following command:
 
 ```
 wrangler publish
+```
+
+to test the app locally, run the following command in the root directory:
+
+```
+wrangler dev
 ```
 
 #### Serverless
